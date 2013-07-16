@@ -1,13 +1,13 @@
 class DestinationsController < ApplicationController
+
+  skip_before_filter :require_authentication
+  skip_before_filter :require_admin_authentication
+
   def index
-  end
-
-  def new
-  end
-
-  def create
+    @destinations = Destination.all
   end
 
   def show
+    @destination = Destination.find(params[:id])
   end
 end

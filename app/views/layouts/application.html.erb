@@ -9,6 +9,14 @@
 <body>
 
 <div class="container">
+  <% unless flash[:notice].blank? %>
+    <p id="flash_notice"><%= flash[:notice] %></p>
+  <% end %>
+
+  <% unless flash[:alert].blank? %>
+    <p id="flash_alert"><%= flash[:alert] %></p>
+  <% end %>
+
   <%= yield %>
 </div>
 
