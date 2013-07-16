@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :password, :password_confirmation, :destination_id
 
   validates :email, :uniqueness => true
+
+  validates_presence_of :first_name
+  validates_presence_of :email
+  validates_presence_of :password, :on => :create
 end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   skip_before_filter :require_authentication, :only => [:new, :create]
-  skip_before_filter :require_admin_authentication, :only => [:new, :create, :edit, :update]
+  skip_before_filter :require_admin_authentication, :only => [:new, :create, :edit, :update, :show]
 
   def index
     @users = User.all
