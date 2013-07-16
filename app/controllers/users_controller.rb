@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.js
     end
   end
 
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @user }
+      format.js
     end
   end
 
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @user }
+      format.js
     end
   end
 
@@ -41,14 +41,14 @@ class UsersController < ApplicationController
       if @user.save
         session[:user_id] = @user.id
         if !params[:favorite_id].nil?
-          @favorite = Favorite.find(params[:favorite_id]) #if a favorite param comes in (i.e. page was rendered from a non-logged-in user that wanted to sign up)
-          @user.favorites << @favorite #push favorite into bridge table
+          @destination = Destination.find(params[:destination_id]) #if a destination param comes in (i.e. page was rendered from a non-logged-in user that wanted to sign up)
+          @user.destinations << @destination #push destination into bridge table
         end
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to users_url }
-      format.json { head :no_content }
+      format.js
     end
   end
 end
