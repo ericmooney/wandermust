@@ -10,6 +10,10 @@ class DestinationsController < ApplicationController
   def create
     @destination = Destination.new
 
+
+
+
+
     respond_to do |format|
       if @destination.save
         format.html { redirect_to @destination }
