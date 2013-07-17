@@ -16,6 +16,16 @@
     </ul>
 </ul>
 
+<div id='map' class='dark'></div>
+
+<script type='text/javascript'>
+    var map = L.mapbox.map('map', 'examples.map-vyofok3q')
+      .on('ready', function() {
+        new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-uci7ul8p'))
+          .addTo(map);
+      });
+</script>
+
 <% if !@destination.users.include?(current_user) %>
   <%= link_to 'Save this Destination', save_destination_path %>
 <% end %>
