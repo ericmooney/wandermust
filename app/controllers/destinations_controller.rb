@@ -5,6 +5,18 @@ class DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.all
+
+    @top_destinations = @destinations.sort {
+      |x| x.users.size
+    }
+
+  #   @top_destinations = []
+  #   @destinations.select do |destination|
+  #     if destination.users.size > 0
+  #       @top_destinations << destination
+  #     end
+  #   end
+  #   @top_destinations .....
   end
 
   def create
