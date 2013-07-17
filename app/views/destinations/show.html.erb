@@ -16,12 +16,12 @@
     </ul>
 </ul>
 
-<div id='map' class='dark'></div>
+<div id='map' class="dark"></div>
 
 <script type='text/javascript'>
  var map = L.mapbox.map('map', 'examples.map-vyofok3q')
      .addControl(L.mapbox.geocoderControl('examples.map-vyofok3q'))
-     .setView([<%= @destination.latitude %>, <%= @destination.longitude %>], 5)
+     .setView([<%= @destination.latitude %>, <%= @destination.longitude %>], 6)
      .on('ready', function() {
        new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-uci7ul8p'))
          .addTo(map);
@@ -35,7 +35,8 @@
      },
      properties: {
          title: "<%= @destination.address %>",
-         description: ''
+         description: '',
+         "marker-symbol": "star",
      }
  };
 
