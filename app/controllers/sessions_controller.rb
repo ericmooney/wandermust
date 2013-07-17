@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         @destination = Destination.find(params[:destination_id]) #if a destination param comes in (i.e. page was rendered from a non-logged-in user that wanted to sign up)
         user.destinations << @destination #push destination into bridge table
       end
-      redirect_to destination_path(@destination), :notice => "Nice! You logged in."
+      redirect_to user_path(user), :notice => "Nice! You logged in."
     else
       flash.now[:alert] = "Your email or password are not correct."
       render :new

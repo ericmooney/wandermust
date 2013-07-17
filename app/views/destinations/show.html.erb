@@ -1,2 +1,6 @@
 <h1>Destinations#show</h1>
 <p>Find me in app/views/destinations/show.html.erb</p>
+
+<% if !@destination.users.include?(current_user) %>
+  <%= link_to 'Save this Destination', save_destination_path %>
+<% end %>

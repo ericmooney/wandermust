@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        if !params[:favorite_id].nil?
+        if !params[:destination_id].nil?
           @destination = Destination.find(params[:destination_id]) #if a destination param comes in (i.e. page was rendered from a non-logged-in user that wanted to sign up)
           @user.destinations << @destination #push destination into bridge table
         end
