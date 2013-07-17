@@ -7,7 +7,7 @@ class DestinationsController < ApplicationController
     @destinations = Destination.all
 
     @top_destinations = @destinations.sort {
-      |x| x.users.size
+      |a, b| b.users.size <=> a.users.size
     }
 
   #   @top_destinations = []

@@ -21,7 +21,7 @@
     <th>Destination Country</th>
     <th>Latitude</th>
     <th>Longitude</th>
-    <th></th>
+    <th>ID</th>
     <th></th>
   </tr>
 
@@ -32,6 +32,7 @@
     <td><%= destination.address.split(", ")[1,2].join(", ") %></td>
     <td><%= destination.latitude %></td>
     <td><%= destination.longitude %></td>
+    <td><%= destination.id %></td>
     <td><%= link_to 'Show', destination %></td>
   </tr>
 <% end %>
@@ -47,7 +48,7 @@
     <th>Destination Country</th>
     <th>Latitude</th>
     <th>Longitude</th>
-    <th></th>
+    <th>ID</th>
     <th></th>
   </tr>
 
@@ -58,6 +59,7 @@
     <td><%= destination.address.split(", ")[1,2].join(", ") %></td>
     <td><%= destination.latitude %></td>
     <td><%= destination.longitude %></td>
+    <td><%= destination.id %></td>
     <td><%= link_to 'Show', destination %></td>
   </tr>
 <% end %>

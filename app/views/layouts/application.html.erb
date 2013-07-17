@@ -61,8 +61,9 @@
           <li class="nav-header">Top Saved Destinations</li>
           <li class="divider"></li>
           <!-- This will be where I list the top destinations by their instances on the bridge table -->
-          <li><a href="#">Paris</a></li>
-          <li><a href="#">Hong Kong</a></li>
+          <% @top_destinations.take(5).each do |destination| %>
+            <li><%= link_to "#{destination.address}", destination_path(destination) %></li>
+          <% end %>
           <li class="nav-header">Trending Destinations</li>
           <!-- This will be saved by timestamp over the last 30 days -->
           <li class="divider"></li>
