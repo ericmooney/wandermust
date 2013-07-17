@@ -6,7 +6,7 @@ class Destination < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude do |destination,results|
     if geo = results.first
       if geo != nil && geo.city != nil && geo.country != nil
-        destination.address = "#{geo.city}, #{geo.country}"
+        destination.address = "#{geo.city}, #{geo.state}, #{geo.country}"
         if (destination.address == nil || destination.address == "0")
           destination.address = 0
         end

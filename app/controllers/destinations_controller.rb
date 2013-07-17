@@ -9,14 +9,6 @@ class DestinationsController < ApplicationController
     @top_destinations = @destinations.sort {
       |a, b| b.users.size <=> a.users.size
     }
-
-  #   @top_destinations = []
-  #   @destinations.select do |destination|
-  #     if destination.users.size > 0
-  #       @top_destinations << destination
-  #     end
-  #   end
-  #   @top_destinations .....
   end
 
   def create
@@ -47,6 +39,12 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.find(params[:id])
+
+    @destinations = Destination.all
+
+    @top_destinations = @destinations.sort {
+      |a, b| b.users.size <=> a.users.size
+    }
   end
 
   def save

@@ -15,6 +15,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
+    @destinations = Destination.all
+
+    @top_destinations = @destinations.sort {
+      |a, b| b.users.size <=> a.users.size
+    }
+
     respond_to do |format|
       format.html # show.html.erb
       format.js
