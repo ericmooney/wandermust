@@ -26,7 +26,7 @@
     <th></th>
   </tr>
 
-<% @top_destinations.take(5).each do |destination| %>
+<% top_destinations_list.take(5).each do |destination| %>
   <tr>
     <td><%= destination.users.size %></td>
     <td><%= destination.address.split(", ")[0] %></td>

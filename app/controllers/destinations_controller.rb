@@ -5,10 +5,6 @@ class DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.all
-
-    @top_destinations = @destinations.sort {
-      |a, b| b.users.size <=> a.users.size
-    }
   end
 
   def create
@@ -39,12 +35,6 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.find(params[:id])
-
-    @destinations = Destination.all
-
-    @top_destinations = @destinations.sort {
-      |a, b| b.users.size <=> a.users.size
-    }
   end
 
   def save
