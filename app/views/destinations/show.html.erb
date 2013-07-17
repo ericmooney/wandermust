@@ -19,11 +19,24 @@
 <div id='map' class='dark'></div>
 
 <script type='text/javascript'>
-    var map = L.mapbox.map('map', 'examples.map-vyofok3q')
-      .on('ready', function() {
-        new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-uci7ul8p'))
-          .addTo(map);
-      });
+ var map = L.mapbox.map('map', 'examples.map-y7l23tes')
+     .addControl(L.mapbox.geocoderControl('examples.map-y7l23tes'))
+     .setView([<%= @destination.latitude %>, <%= @destination.longitude %>], 5);
+
+ var feature = {
+     type: 'Feature',
+     geometry: {
+         type: 'Point',
+         coordinates: [<%= @destination.longitude %>, <%= @destination.latitude %>]
+     },
+     properties: {
+         title: "<%= @destination.address %>",
+         description: ''
+     }
+ };
+
+ map.markerLayer.setGeoJSON(feature);
+
 </script>
 
 <% if !@destination.users.include?(current_user) %>
