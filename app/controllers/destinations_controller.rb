@@ -12,11 +12,15 @@ class DestinationsController < ApplicationController
     @destination = Destination.new
     @destination.get_random_coordinates
 
-    binding.pry
-      while @destination.address == "0" do
+    # make sure the destination has a valid city returned, delete errors SEE IF I CAN do this before saving a record to DB
+    if @destination.address == 0
+      until @destination.address != 0
         @destination.destroy
-        @destination = Destination.new.get_random_coordinates
+        @destination = Destination.new
+        @destination.get_random_coordinates
       end
+    end
+
 
     respond_to do |format|
       if @destination.save
