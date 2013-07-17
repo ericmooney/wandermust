@@ -8,11 +8,15 @@ class DestinationsController < ApplicationController
   end
 
   def create
+    # Use Geocoder to pull back a city, if no city returns, create new random coordinates
     @destination = Destination.new
+    @destination.get_random_coordinates
 
-
-
-
+    binding.pry
+      while @destination.address == "0" do
+        @destination.destroy
+        @destination = Destination.new.get_random_coordinates
+      end
 
     respond_to do |format|
       if @destination.save

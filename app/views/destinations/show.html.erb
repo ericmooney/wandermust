@@ -1,6 +1,21 @@
 <h1>Destinations#show</h1>
 <p>Find me in app/views/destinations/show.html.erb</p>
 
+<ul>
+  <li>Destination</li>
+    <ul>
+      <li><%= @destination.address %></li>
+    </ul>
+  <li>Latitude</li>
+    <ul>
+      <li><%= @destination.latitude %></li>
+    </ul>
+  <li>Longitude</li>
+    <ul>
+      <li><%= @destination.longitude %></li>
+    </ul>
+</ul>
+
 <% if !@destination.users.include?(current_user) %>
   <%= link_to 'Save this Destination', save_destination_path %>
 <% end %>
