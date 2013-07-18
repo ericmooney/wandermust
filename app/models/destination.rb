@@ -1,5 +1,6 @@
 class Destination < ActiveRecord::Base
-  has_and_belongs_to_many :users
+  has_many :users, through: :favorites
+  has_many :favorites
   attr_accessible :latitude, :longitude, :address, :user_id
 
 

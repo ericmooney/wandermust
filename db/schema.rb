@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717005445) do
+ActiveRecord::Schema.define(:version => 20130718011900) do
 
   create_table "destinations", :force => true do |t|
     t.float    "latitude"
@@ -21,10 +21,15 @@ ActiveRecord::Schema.define(:version => 20130717005445) do
     t.string   "address"
   end
 
-  create_table "destinations_users", :force => true do |t|
-    t.integer "destination_id"
-    t.integer "user_id"
+  create_table "favorites", :force => true do |t|
+    t.integer  "destination_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
+
+  add_index "favorites", ["destination_id"], :name => "index_favorites_on_destination_id"
+  add_index "favorites", ["user_id"], :name => "index_favorites_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
