@@ -21,10 +21,10 @@ $(document).ready(function(){
     $('#wander_button').hide();
   }
 
-  // var destination_header = $('h1')
-  // var destination_header_class = $('h1');
 
-  // if (current_page_is_top_fav.length > 1) {
-  //   current_page_is_top_fav.last().addClass("active");
-  // }
+  var destination_header_class = $("h1").attr("class");
+
+  if ($("."+destination_header_class).length > 1) {
+    $("li."+destination_header_class).addClass("alert alert-info");
+  }
 });

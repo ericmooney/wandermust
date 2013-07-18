@@ -5,25 +5,21 @@ module ApplicationHelper
     }
   end
 
-# Need to fix
+  # Need to fix
 
-  # def trending_destinations_list
+  def trending_destinations_list
+    trending_favorites = Favorite.where(created_at: (Time.now - 15.hour)..Time.now)
+    destinations = trending_favorites.map{|x| x.destination}
+    sorted_trending = destinations.sort {|a, b| b.favorites.size <=> a.favorites.size}
+    final = []
 
-  #   # need to contrain the array that I am sorting in the next section
-
-  #   trending_favorites = Favorite.where(created_at: (Time.now - 3.hour)..Time.now)
-  #   trending_array = []
-
-  #   Destination.all.each do |x|
-  #     if trending_favorites.include?(x)
-  #       trending_array.push(x)
-  #     end
-  #   end
-
-  #   trending_array.sort {
-  #     |a, b| b.users.where(created_at: (Time.now - 3.hour)..Time.now).size <=>
-  #     a.users.where(created_at: (Time.now - 3.hour)..Time.now).size
-  #   }
-  # end
+    sorted_trending.each do |destination|
+      if !final.include?(destination)
+        final << destination
+      end
+    end
+    final
+  end
 
 end
+
