@@ -23,3 +23,12 @@ body {
   width:700px;
   height: 400px;
 }
+
+#point_to_wander {
+  text-align: right;
+}
+
+#sign_in, #log-in {
+  float: left;
+  margin: 20px 40px;
+}

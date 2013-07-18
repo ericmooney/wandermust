@@ -2,16 +2,45 @@
   <h1>Discover your World</h1>
   <br>
   <p>You are only lost if you have stopped searching</p>
-  <p>
     <br>
     <br>
     <br>
     <br>
-  </p>
+    <h2 id="point_to_wander">Begin the Journey --></h2>
 </div>
 
 
 <!-- will hid the rest later for admin use only-->
+
+<h1>Listing TRENDING destinations</h1>
+
+<table>
+  <tr>
+    <th>Number of Favorites</th>
+    <th>Destination City</th>
+    <th>Destination Province</th>
+    <th>Destination Country</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>ID</th>
+    <th></th>
+  </tr>
+<!-- need to update the next line once i make the method -->
+<% top_destinations_list.take(5).each do |destination| %>
+  <tr>
+    <td><%= destination.users.size %></td>
+    <td><%= destination.address.split(", ")[0] %></td>
+    <td><%= destination.address.split(", ")[1] %></td>
+    <td><%= destination.address.split(", ")[2] %></td>
+    <td><%= destination.latitude %></td>
+    <td><%= destination.longitude %></td>
+    <td><%= destination.id %></td>
+    <td><%= link_to 'Show', destination %></td>
+  </tr>
+<% end %>
+</table>
+
+
 
 <h1>Listing TOP destinations</h1>
 

@@ -21,15 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def new
-    @user = User.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.js
-    end
-  end
-
   def edit
     @user = User.find(params[:id])
   end

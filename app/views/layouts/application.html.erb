@@ -43,7 +43,6 @@
               <li class=""><%= link_to "Howdy, #{current_user.first_name}", user_path(current_user), :class => "nav" %></li>
               <li class=""><%= link_to "Log Out", logout_path, :class => "nav" %></li>
             <% else %>
-              <li class=""><%= link_to "Signup", login_path, :class => "nav" %></li>
               <li class=""><%= link_to "Log In", login_path, :class => "nav" %></li>
             <% end %>
           </ul>

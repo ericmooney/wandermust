@@ -5,4 +5,9 @@ module ApplicationHelper
     }
   end
 
+  # def trending_destinations_list
+  #   Destination.where
+  # end
+
+
 end
