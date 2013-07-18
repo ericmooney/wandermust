@@ -1,4 +1,4 @@
-<h1><%= @destination.address %></h1>
+<h1 class="d<%= @destination.id %>"><%= @destination.address %></h1>
 <h5>Latitude: <%= @destination.latitude.round(9) %></h5>
 <h5>Longitude: <%= @destination.longitude.round(9) %></h5>
 
@@ -6,11 +6,11 @@
 <div id='map' class="dark"></div>
 
 <script type='text/javascript'>
- var map = L.mapbox.map('map', 'examples.map-vyofok3q')
-     .addControl(L.mapbox.geocoderControl('examples.map-vyofok3q'))
+ var map = L.mapbox.map('map', 'examples.map-qfyrx5r8')
+     .addControl(L.mapbox.geocoderControl('examples.map-qfyrx5r8'))
      .setView([<%= @destination.latitude %>, <%= @destination.longitude %>], 6)
      .on('ready', function() {
-       new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-uci7ul8p'))
+       new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-b70jh5xu'))
          .addTo(map);
       });
 
@@ -21,7 +21,7 @@
          coordinates: [<%= @destination.longitude %>, <%= @destination.latitude %>]
      },
      properties: {
-         title: "<%= @destination.address %>",
+         title: "<%= @destination.address.split(", ")[0] %>, <%= @destination.address.split(", ")[2] %>",
          description: "",
          "marker-symbol": "star",
      }

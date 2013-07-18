@@ -73,14 +73,17 @@
           <li class="nav-header">Top Saved Destinations</li>
           <li class="divider"></li>
           <% top_destinations_list.take(5).each do |destination| %>
-            <li><%= link_to "#{destination.address}", destination_path(destination) %></li>
+            <li class="d<%= destination.id %>"><%= link_to "#{destination.address}", destination_path(destination) %></li>
           <% end %>
           <li class="nav-header">Trending Destinations</li>
-          <!-- This will be saved by timestamp over the last 30 days -->
+          <!-- This will be saved by timestamp over the last 1 day -->
           <li class="divider"></li>
-          <li class="active"><a href="#">Istanbul</a></li> <!-- if you are on that page, it's active -->
-          <li><a href="#">Absecon</a></li>
-
+          <% trending_destinations_list.take(3).each do |destination| %>
+            <% if destination.favorites.size != 0  %>
+              <!-- <li class="active"><a href="#">Istanbul</a></li> if you are on that page, it's active -->
+              <li class="d<%= destination.id %>"><%= link_to "#{destination.address}", destination_path(destination) %></li>
+            <% end %>
+          <% end %>
           <li class="divider"></li>
           <%= link_to "Wander", destinations_path, :method => "POST", :id => "wander_button", :class => "btn btn-primary btn-block btn-large" %>
         </ul>
