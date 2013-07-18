@@ -1,20 +1,7 @@
-<h1>Destinations#show</h1>
-<p>Find me in app/views/destinations/show.html.erb</p>
+<h1><%= @destination.address %></h1>
+<h5>Latitude: <%= @destination.latitude.round(9) %></h5>
+<h5>Longitude: <%= @destination.longitude.round(9) %></h5>
 
-<ul>
-  <li>Destination</li>
-    <ul>
-      <li><%= @destination.address %></li>
-    </ul>
-  <li>Latitude</li>
-    <ul>
-      <li><%= @destination.latitude %></li>
-    </ul>
-  <li>Longitude</li>
-    <ul>
-      <li><%= @destination.longitude %></li>
-    </ul>
-</ul>
 
 <div id='map' class="dark"></div>
 
@@ -35,7 +22,7 @@
      },
      properties: {
          title: "<%= @destination.address %>",
-         description: '',
+         description: "",
          "marker-symbol": "star",
      }
  };

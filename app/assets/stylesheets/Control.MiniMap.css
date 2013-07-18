@@ -27,5 +27,9 @@
     width: 19px;
     position: absolute;
     bottom: 0;
-    right: 0; 
+    right: 0;
+}
+
+a.leaflet-control-mapbox-geocoder-toggle.mapbox-icon.mapbox-icon-geocoder {
+    display:none;
 }
