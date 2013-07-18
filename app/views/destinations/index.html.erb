@@ -1,12 +1,10 @@
-<div class="hero-unit">
+<div id="homepage" class="hero-unit">
   <h1>Discover your World</h1>
   <br>
   <p>You are only lost if you have stopped searching</p>
     <br>
-    <br>
-    <br>
-    <br>
-    <h2 id="point_to_wander">Begin the Journey --></h2>
+
+    <%= link_to "Wander", destinations_path, :method => "POST", :id => "start_journey", :class => "btn btn-primary btn-block btn-large" %>
 </div>
 
 

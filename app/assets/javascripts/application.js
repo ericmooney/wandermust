@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+
+$(document).ready(function(){
+  if ($('#homepage').length > 0) {
+    $('#wander_button').hide();
+  }
+});
