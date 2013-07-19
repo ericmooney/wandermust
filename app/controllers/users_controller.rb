@@ -38,7 +38,7 @@ class UsersController < ApplicationController
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to root_path, alert: 'There was an error with signing up, please try again.' }
         format.js
       end
     end

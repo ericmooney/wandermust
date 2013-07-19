@@ -1,4 +1,5 @@
 class DestinationsController < ApplicationController
+  require "open-uri"
 
   skip_before_filter :require_authentication
   skip_before_filter :require_admin_authentication
@@ -35,7 +36,68 @@ class DestinationsController < ApplicationController
 
   def show
     @destination = Destination.find(params[:id])
-    @destination_id = @destination.id
+
+    begin
+      wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.gsub(" ", "_")}"))
+      summary = wiki_content.css("#mw-content-text p")[0].content
+      if summary.include?("may refer to") ||
+        raise
+      else
+        @summary = summary
+      end
+    rescue
+      begin
+        wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.split(" ")[0]}"))
+        @summary = wiki_content.css("#mw-content-text p")[0].content
+        if summary.include?("may refer to")
+          raise
+        else
+          @summary = summary
+        end
+      rescue
+        begin
+        wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
+        @summary = wiki_content.css("#mw-content-text p")[0].content
+        if summary.include?("may refer to")
+          raise
+        else
+          @summary = summary
+        end
+        rescue
+          begin
+          wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.split(" ")[0]}"))
+          @summary = wiki_content.css("#mw-content-text p")[0].content
+          if summary.include?("may refer to")
+            raise
+          else
+            @summary = summary
+          end
+          rescue
+            begin
+            wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.gsub(" ", "_")}"))
+            @summary = wiki_content.css("#mw-content-text p")[0].content
+            if summary.include?("may refer to")
+              raise
+            else
+              @summary = summary
+            end
+            rescue
+              begin
+                wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.split(" ")[0]}"))
+                @summary = wiki_content.css("#mw-content-text p")[0].content
+                if summary.include?("may refer to")
+                  raise
+                else
+                  @summary = summary
+                end
+              rescue
+              end
+            end
+          end
+        end
+      end
+    end
+
   end
 
   def save
