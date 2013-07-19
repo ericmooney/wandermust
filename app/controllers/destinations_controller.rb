@@ -40,8 +40,9 @@ class DestinationsController < ApplicationController
   def show
     @destination = Destination.find(params[:id])
 
+    response = RubyWebSearch::Google.search(:query => "#{@destination.address} site:en.wikipedia.org").results.first[:url]
     begin
-      wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.gsub(" ", "_")}"))
+      wiki_content = Nokogiri::HTML(open(response))
       summary = wiki_content.css("#mw-content-text p")[0].content
       if summary.include?("may refer to")
         raise
@@ -49,56 +50,9 @@ class DestinationsController < ApplicationController
         @summary = summary
       end
     rescue
-      begin
-        wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.split(" ")[0]}"))
-        @summary = wiki_content.css("#mw-content-text p")[0].content
-        if summary.include?("may refer to")
-          raise
-        else
-          @summary = summary
-        end
-      rescue
-        begin
-        wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
-        @summary = wiki_content.css("#mw-content-text p")[0].content
-        if summary.include?("may refer to")
-          raise
-        else
-          @summary = summary
-        end
-        rescue
-          begin
-          wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.split(" ")[0]}"))
-          @summary = wiki_content.css("#mw-content-text p")[0].content
-          if summary.include?("may refer to")
-            raise
-          else
-            @summary = summary
-          end
-          rescue
-            begin
-            wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.gsub(" ", "_")}"))
-            @summary = wiki_content.css("#mw-content-text p")[0].content
-            if summary.include?("may refer to")
-              raise
-            else
-              @summary = summary
-            end
-            rescue
-              begin
-                wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.split(" ")[0]}"))
-                @summary = wiki_content.css("#mw-content-text p")[0].content
-                if summary.include?("may refer to")
-                  raise
-                else
-                  @summary = summary
-                end
-              rescue
-              end
-            end
-          end
-        end
-      end
+      response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+      wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
+      @summary = wiki_content.css("#mw-content-text p")[0].content
     end
 
   end
