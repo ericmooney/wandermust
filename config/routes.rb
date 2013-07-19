@@ -1,6 +1,7 @@
 Wandermust::Application.routes.draw do
   match "login" => 'sessions#new', :as => "login"
   match "logout" => 'sessions#destroy', :as => "logout"
+  match "destinations/complete" => 'destinations#complete', :as => "complete"
 
   get "destinations/:id/save/" => 'destinations#save', :as => 'save_destination'
 

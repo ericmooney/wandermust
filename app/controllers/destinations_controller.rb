@@ -5,6 +5,9 @@ class DestinationsController < ApplicationController
   skip_before_filter :require_admin_authentication
 
   def index
+  end
+
+  def complete
     @destinations = Destination.all
   end
 
@@ -40,7 +43,7 @@ class DestinationsController < ApplicationController
     begin
       wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.gsub(" ", "_")}"))
       summary = wiki_content.css("#mw-content-text p")[0].content
-      if summary.include?("may refer to") ||
+      if summary.include?("may refer to")
         raise
       else
         @summary = summary

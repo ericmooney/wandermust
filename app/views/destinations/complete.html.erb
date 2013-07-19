@@ -1,0 +1,92 @@
+<!-- will hide the rest later for admin use only-->
+
+<h1>Listing TRENDING destinations</h1>
+
+<table>
+  <tr>
+    <th>Number of Favorites</th>
+    <th>Destination City</th>
+    <th>Destination Province</th>
+    <th>Destination Country</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>ID</th>
+    <th></th>
+  </tr>
+<!-- need to update the next line once i make the method -->
+<% trending_destinations_list.take(3).each do |destination| %>
+  <% if destination.favorites.size != 0  %>
+    <tr>
+      <td><%= destination.favorites.size %></td>
+      <td><%= destination.address.split(", ")[0] %></td>
+      <td><%= destination.address.split(", ")[1] %></td>
+      <td><%= destination.address.split(", ")[2] %></td>
+      <td><%= destination.latitude %></td>
+      <td><%= destination.longitude %></td>
+      <td><%= destination.id %></td>
+      <td><%= link_to 'Show', destination %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+
+
+<h1>Listing TOP destinations</h1>
+
+<table>
+  <tr>
+    <th>Number of Favorites</th>
+    <th>Destination City</th>
+    <th>Destination Province</th>
+    <th>Destination Country</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>ID</th>
+    <th></th>
+  </tr>
+
+<% top_destinations_list.take(5).each do |destination| %>
+  <tr>
+    <td><%= destination.users.size %></td>
+    <td><%= destination.address.split(", ")[0] %></td>
+    <td><%= destination.address.split(", ")[1] %></td>
+    <td><%= destination.address.split(", ")[2] %></td>
+    <td><%= destination.latitude %></td>
+    <td><%= destination.longitude %></td>
+    <td><%= destination.id %></td>
+    <td><%= link_to 'Show', destination %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<h1>Listing all destinations</h1>
+
+<table>
+  <tr>
+    <th>Number of Favorites</th>
+    <th>Destination City</th>
+    <th>Destination Province</th>
+    <th>Destination Country</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>ID</th>
+    <th></th>
+  </tr>
+
+<% @destinations.each do |destination| %>
+  <tr>
+    <td><%= destination.users.size %></td>
+    <td><%= destination.address.split(", ")[0] %></td>
+    <td><%= destination.address.split(", ")[1] %></td>
+    <td><%= destination.address.split(", ")[2] %></td>
+    <td><%= destination.latitude %></td>
+    <td><%= destination.longitude %></td>
+    <td><%= destination.id %></td>
+    <td><%= link_to 'Show', destination %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Wandermust</title>
+  <title>Wandermvst</title>
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.css" />
    <!--[if lte IE 8]>
        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.ie.css" />
@@ -34,7 +34,7 @@
         </a>
 
         <!-- Be sure to leave the brand out there if you want it shown -->
-        <a class="brand" href="/">Wandermust</a>
+        <a class="brand" href="/">Wandermvst</a>
 
         <!-- Everything you want hidden at 940px or less, place within here -->
         <div class="nav-collapse collapse">
@@ -70,6 +70,8 @@
       </div>
       <div class="span3 well">
         <ul class="nav nav-list">
+          <li><%= link_to "Show World Map", complete_path, :class => "btn btn-success" %></li>
+          <li class="divider"></li>
           <li class="nav-header">Top Saved Destinations</li>
           <li class="divider"></li>
           <% top_destinations_list.take(5).each do |destination| %>
