@@ -1,4 +1,12 @@
 module ApplicationHelper
+
+  def all_destinations_list
+    Destination.all.sort {
+      |a, b| a.address <=> b.address
+    }
+  end
+
+
   def top_destinations_list
     Destination.all.sort {
       |a, b| b.users.size <=> a.users.size

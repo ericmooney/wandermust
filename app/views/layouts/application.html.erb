@@ -70,13 +70,14 @@
       </div>
       <div class="span3 well">
         <ul class="nav nav-list">
-          <li><%= link_to "Show World Map", complete_path, :class => "btn btn-success" %></li>
+          <li><%= link_to "Show World Map", complete_path, :class => "btn" %></li>
           <li class="divider"></li>
           <li class="nav-header">Top Saved Destinations</li>
           <li class="divider"></li>
           <% top_destinations_list.take(5).each do |destination| %>
             <li class="d<%= destination.id %>"><%= link_to "#{destination.address}", destination_path(destination) %></li>
           <% end %>
+          <li class="divider"></li>
           <li class="nav-header">Trending Destinations</li>
           <!-- This will be saved by timestamp over the last 1 day -->
           <li class="divider"></li>

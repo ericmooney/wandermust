@@ -6,23 +6,23 @@ class Destination < ActiveRecord::Base
 
   reverse_geocoded_by :latitude, :longitude do |destination,results|
     if geo = results.first
-      if geo != nil && geo.city != nil && geo.country != nil
+      if !geo.city.blank? && !geo.country.blank?
         destination.address = "#{geo.city}, #{geo.state}, #{geo.country}"
-        if (destination.address == nil || destination.address == "0")
+        if (destination.address.blank? || destination.address == "0" || destination.address == 0)
           destination.address = 0
         end
       else
-        destination.address = 0
+        destination.address = 1
       end
     else
-      destination.address = 0
+      destination.address = 2
     end
   end
   after_validation :reverse_geocode
 
 
   def get_random_coordinates
-    update_attributes(:longitude => (rand*(360)-172), :latitude => (rand*(132)-66))
+    update_attributes(:longitude => (rand*(360)-180), :latitude => (rand*(180)-90))
     return  #without this, I was getting back "true", which messed up the controller logic
   end
 
