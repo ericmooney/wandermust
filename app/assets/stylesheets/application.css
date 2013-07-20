@@ -78,10 +78,11 @@ li.alert {
   display:none;
 }
 
-#homepage {
-  text-align: center;
-}
-
 #top_list > li{
   text-align: left;
+}
+
+#destination_content {
+  text-align: justify;
+  margin: 10px 20px;
 }
