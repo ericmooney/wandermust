@@ -8,6 +8,7 @@ Wandermust::Application.routes.draw do
   resources :users
   resources :sessions, :except => [:edit, :update, :index]
   resources :destinations, :except => [:edit, :update, :delete]
+  resources :favorites, :only => [:destroy]
 
   root :to => 'destinations#index'
 

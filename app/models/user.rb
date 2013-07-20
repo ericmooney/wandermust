@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :destinations, through: :favorites
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
 
   attr_accessible :email, :first_name, :password, :password_confirmation, :destination_id
 
