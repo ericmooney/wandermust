@@ -17,10 +17,9 @@
 
 body {
   padding: 40px;
-  background-image: url('barcelona.jpg');
-  background: no-repeat center center fixed;
+  text-align: center;
   background-size: cover;
-  background-size: 100%;
+  background-image:url('barcelona.jpg');
 }
 
 div.row-fluid > div {
@@ -81,4 +80,8 @@ li.alert {
 
 #homepage {
   text-align: center;
+}
+
+#top_list > li{
+  text-align: left;
 }

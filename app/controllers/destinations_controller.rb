@@ -59,8 +59,8 @@ class DestinationsController < ApplicationController
       end
     rescue
       begin
-        response_1 = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
-        wiki_content = Nokogiri::HTML(open(response_1))
+        response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+        wiki_content = Nokogiri::HTML(open(response))
         summary = wiki_content.css("#mw-content-text p")[0].content
         if (summary.blank? || summary.include?("Coordinates"))
           summary = wiki_content.css("#mw-content-text p")[1].content
@@ -74,8 +74,8 @@ class DestinationsController < ApplicationController
         end
       rescue
         begin
-          response_2 = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[1]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
-          wiki_content = Nokogiri::HTML(open(response_2))
+          response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[1]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+          wiki_content = Nokogiri::HTML(open(response))
           summary = wiki_content.css("#mw-content-text p")[0].content
           if (summary.blank? || summary.include?("Coordinates"))
             summary = wiki_content.css("#mw-content-text p")[1].content
@@ -179,15 +179,18 @@ class DestinationsController < ApplicationController
       end
     end
 
-    page = Wikipedia.find(response)
-    @photo_urls = []
-    if !page.image_urls.blank?
-      page.image_urls.each do |url|
-        if !url.include?("Compass") && !url.include?("Ambox")
-          @photo_urls << url
+    if !response == nil
+      page = Wikipedia.find(response)
+      @photo_urls = []
+      if !page.image_urls.blank?
+        page.image_urls.each do |url|
+          if !url.include?("Compass") && !url.include?("Ambox")
+            @photo_urls << url
+          end
         end
       end
     end
+
   end
 
   def save
