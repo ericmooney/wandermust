@@ -40,6 +40,7 @@ class DestinationsController < ApplicationController
   end
 
   def show
+    @user = User.find(session[:user_id])
     @destination = Destination.find(params[:id])
 
     begin
@@ -57,9 +58,125 @@ class DestinationsController < ApplicationController
         @summary = summary
       end
     rescue
-      response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
-      wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
-      @summary = wiki_content.css("#mw-content-text p")[0].content
+      begin
+        response_1 = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+        wiki_content = Nokogiri::HTML(open(response_1))
+        summary = wiki_content.css("#mw-content-text p")[0].content
+        if (summary.blank? || summary.include?("Coordinates"))
+          summary = wiki_content.css("#mw-content-text p")[1].content
+          if (summary.include?("may refer to") || summary.blank?)
+            raise
+          else
+            @summary = summary
+          end
+        else
+          @summary = summary
+        end
+      rescue
+        begin
+          response_2 = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[1]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+          wiki_content = Nokogiri::HTML(open(response_2))
+          summary = wiki_content.css("#mw-content-text p")[0].content
+          if (summary.blank? || summary.include?("Coordinates"))
+            summary = wiki_content.css("#mw-content-text p")[1].content
+            if (summary.include?("may refer to") || summary.blank?)
+              raise
+            else
+              @summary = summary
+            end
+          else
+            @summary = summary
+          end
+        rescue
+          begin
+            wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.gsub(" ", "_")}"))
+            summary = wiki_content.css("#mw-content-text p")[0].content
+            if (summary.blank? || summary.include?("Coordinates"))
+              summary = wiki_content.css("#mw-content-text p")[1].content
+              if (summary.include?("may refer to") || summary.blank?)
+                raise
+              else
+                @summary = summary
+              end
+            else
+              @summary = summary
+            end
+          rescue
+            begin
+              wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.split(" ")[0]}"))
+              summary = wiki_content.css("#mw-content-text p")[0].content
+              if (summary.blank? || summary.include?("Coordinates"))
+                summary = wiki_content.css("#mw-content-text p")[1].content
+                if (summary.include?("may refer to") || summary.blank?)
+                  raise
+                else
+                  @summary = summary
+                end
+              else
+                @summary = summary
+              end
+            rescue
+              begin
+              wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
+              summary = wiki_content.css("#mw-content-text p")[0].content
+              if (summary.blank? || summary.include?("Coordinates"))
+                summary = wiki_content.css("#mw-content-text p")[1].content
+                if (summary.include?("may refer to") || summary.blank?)
+                  raise
+                else
+                  @summary = summary
+                end
+              else
+                @summary = summary
+              end
+              rescue
+                begin
+                wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.split(" ")[0]}"))
+                summary = wiki_content.css("#mw-content-text p")[0].content
+                if (summary.blank? || summary.include?("Coordinates"))
+                  summary = wiki_content.css("#mw-content-text p")[1].content
+                  if (summary.include?("may refer to") || summary.blank?)
+                    raise
+                  else
+                    @summary = summary
+                  end
+                else
+                  @summary = summary
+                end
+                rescue
+                  begin
+                  wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.gsub(" ", "_")}"))
+                  summary = wiki_content.css("#mw-content-text p")[0].content
+                  if (summary.blank? || summary.include?("Coordinates"))
+                    summary = wiki_content.css("#mw-content-text p")[1].content
+                    if (summary.include?("may refer to") || summary.blank?)
+                      raise
+                    else
+                      @summary = summary
+                    end
+                  else
+                    @summary = summary
+                  end
+                  rescue
+                    wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.split(" ")[0]}"))
+                    summary = wiki_content.css("#mw-content-text p")[0].content
+                    if (summary.blank? || summary.include?("Coordinates"))
+                      summary = wiki_content.css("#mw-content-text p")[1].content
+                      if (summary.include?("may refer to") || summary.blank?)
+                        raise
+                      else
+                        @summary = summary
+                      end
+                    else
+                      @summary = summary
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
     end
 
     page = Wikipedia.find(response)

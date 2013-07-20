@@ -2,7 +2,7 @@
 <h5>Latitude: <%= @destination.latitude.round(9) %>,  Longitude: <%= @destination.longitude.round(9) %></h5>
 <p><%= @summary %></p>
 
-<div id='map' class="dark"></div>
+<div id='map' class="dark span9"></div>
 
 <script type='text/javascript'>
  var map = L.mapbox.map('map', 'examples.map-qfyrx5r8')
@@ -31,13 +31,17 @@
 
 
 </script>
-<br>
-<% if @photo_urls.present? %>
-    <% @photo_urls.each do |photo| %>
-        <%= image_tag(photo, :class => "wiki_photos") %>
+<div id="side_photo_container" class="span3">
+    <% if @destination.users.include?(current_user) %>
+        <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
+    <% else %>
+      <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
     <% end %>
-<% end %>
-<br>
-<% if !@destination.users.include?(current_user) %>
-  <%= link_to 'Save this Destination', save_destination_path %>
-<% end %>
+
+    <% if @photo_urls.present? %>
+        <% @photo_urls.each do |photo| %>
+            <%= image_tag(photo, :class => "wiki_photos") %>
+        <% end %>
+    <% end %>
+</div>
+

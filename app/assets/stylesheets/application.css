@@ -17,11 +17,40 @@
 
 body {
   padding: 40px;
+  background-image: url('barcelona.jpg');
+  background: no-repeat center center fixed;
+  background-size: cover;
+  background-size: 100%;
+}
+
+div.row-fluid > div {
+  margin-top: 20px;
+}
+
+#save_destination_button {
+  width: 86%;
+  margin-bottom: 5px;
+}
+
+#map_complete {
+  width:95%;
+  height: 420px;
 }
 
 #map {
-  width:700px;
+  width:70%;
   height: 400px;
+  float:left;
+  margin-right: 10px;
+}
+
+#side_photo_container {
+  height: 400px;
+  overflow: hidden;
+}
+
+#side_photo_container img {
+  margin-bottom: 5px;
 }
 
 #point_to_wander {
@@ -48,4 +77,8 @@ li.alert {
 
 .leaflet-marker-pane img {
   display:none;
+}
+
+#homepage {
+  text-align: center;
 }
