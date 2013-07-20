@@ -1,5 +1,6 @@
 class DestinationsController < ApplicationController
   require "open-uri"
+  require 'wikipedia'
 
   skip_before_filter :require_authentication
   skip_before_filter :require_admin_authentication
@@ -53,6 +54,14 @@ class DestinationsController < ApplicationController
       response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
       wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
       @summary = wiki_content.css("#mw-content-text p")[0].content
+    end
+
+    page = Wikipedia.find(response)
+    photo_urls = []
+    if !page.image_urls.blank?
+      page.image_urls.each do |url|
+        @photo_urls = page.image_urls
+      end
     end
 
   end

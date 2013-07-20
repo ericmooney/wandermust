@@ -14,6 +14,8 @@ gem 'meta_request'
 
 gem 'httparty'
 gem 'nokogiri'
+gem 'ruby-web-search', :git => 'git@github.com:mattetti/ruby-web-search.git'
+gem 'wikipedia-client'
 
 gem "geocoder"
 # Gems used only for assets and not required
@@ -28,7 +30,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'ruby-web-search', :git => 'git@github.com:mattetti/ruby-web-search.git'
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password

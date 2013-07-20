@@ -33,6 +33,12 @@
 
 </script>
 
+<% if @photo_urls.present? %>
+    <% @photo_urls.each do |photo| %>
+        <%= image_tag(photo) %>
+    <% end %>
+<% end %>
+
 <% if !@destination.users.include?(current_user) %>
   <%= link_to 'Save this Destination', save_destination_path %>
 <% end %>
