@@ -41,12 +41,17 @@ class DestinationsController < ApplicationController
   def show
     @destination = Destination.find(params[:id])
 
-    response = RubyWebSearch::Google.search(:query => "#{@destination.address} site:en.wikipedia.org").results.first[:url]
     begin
+      response = RubyWebSearch::Google.search(:query => "#{@destination.address} site:en.wikipedia.org").results.first[:url]
       wiki_content = Nokogiri::HTML(open(response))
       summary = wiki_content.css("#mw-content-text p")[0].content
-      if summary.include?("may refer to")
-        raise
+      if (summary.blank? || summary.include?("Coordinates"))
+        summary = wiki_content.css("#mw-content-text p")[1].content
+        if (summary.include?("may refer to") || summary.blank?)
+          raise
+        else
+          @summary = summary
+        end
       else
         @summary = summary
       end
@@ -57,13 +62,14 @@ class DestinationsController < ApplicationController
     end
 
     page = Wikipedia.find(response)
-    photo_urls = []
+    @photo_urls = []
     if !page.image_urls.blank?
       page.image_urls.each do |url|
-        @photo_urls = page.image_urls
+        if !url.include?("Compass")
+          @photo_urls << url
+        end
       end
     end
-
   end
 
   def save

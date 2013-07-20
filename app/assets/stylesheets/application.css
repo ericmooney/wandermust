@@ -32,3 +32,8 @@ body {
   float: left;
   margin: 20px 40px;
 }
+
+.wiki_photos {
+  width:auto;
+  height: 130px;
+}
