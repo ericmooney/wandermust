@@ -1,15 +1,20 @@
+<h1>Recent Destinations</h1>
+
+
 <div id='map'></div>
 <script>
 var map = L.mapbox.map('map', 'examples.map-20v6611k');
 map.addLayer(L.tileLayer('http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'));
 map.setView([30, -0], 1);
 var d = [];
-<% @destinations.each do |destination| %>
+<% @destinations.shuffle.each do |destination| %>
   d.push({
       type: 'Feature',
       properties: {
           title: '<%= destination.address.split(", ")[0] %>, <%= destination.address.split(", ")[2] %>',
           'marker-size': 'small',
+          'marker-symbol': 'embassy',
+          'marker-color': '#77C99B',
           url: '<%= destination_url(destination) %>'
       },
       geometry: {
@@ -19,14 +24,27 @@ var d = [];
   })
 <% end %>
 
-
 var geoJson = {
     type: 'FeatureCollection',
     features: d
 
 };
 
+
 map.markerLayer.setGeoJSON(geoJson);
+
+var markers = $('.leaflet-marker-pane img')
+var delay = 0;
+$.each(markers, function(k,v) {
+  var marker = $(v);
+  delay += 50;
+  setTimeout(function() {
+    marker.show();
+  }, delay);
+});
+
+
+
 map.markerLayer.on('mouseover', function(e) {
     e.layer.openPopup();
 });
@@ -39,99 +57,5 @@ map.markerLayer.on('click', function(e) {
 });
 </script>
 
+<h5>Note, the wander button will ignore the ocean and locations without a city name (sorry Antarctica...)</h5>
 
-
-
-
-<!-- will hide the rest later for admin use only-->
-
-<h1>Listing TRENDING destinations</h1>
-
-<table>
-  <tr>
-    <th>Number of Favorites</th>
-    <th>Destination City</th>
-    <th>Destination Province</th>
-    <th>Destination Country</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-    <th>ID</th>
-    <th></th>
-  </tr>
-<!-- need to update the next line once i make the method -->
-<% trending_destinations_list.take(3).each do |destination| %>
-  <% if destination.favorites.size != 0  %>
-    <tr>
-      <td><%= destination.favorites.size %></td>
-      <td><%= destination.address.split(", ")[0] %></td>
-      <td><%= destination.address.split(", ")[1] %></td>
-      <td><%= destination.address.split(", ")[2] %></td>
-      <td><%= destination.latitude %></td>
-      <td><%= destination.longitude %></td>
-      <td><%= destination.id %></td>
-      <td><%= link_to 'Show', destination %></td>
-    </tr>
-  <% end %>
-<% end %>
-</table>
-
-
-
-<h1>Listing TOP destinations</h1>
-
-<table>
-  <tr>
-    <th>Number of Favorites</th>
-    <th>Destination City</th>
-    <th>Destination Province</th>
-    <th>Destination Country</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-    <th>ID</th>
-    <th></th>
-  </tr>
-
-<% top_destinations_list.take(5).each do |destination| %>
-  <tr>
-    <td><%= destination.users.size %></td>
-    <td><%= destination.address.split(", ")[0] %></td>
-    <td><%= destination.address.split(", ")[1] %></td>
-    <td><%= destination.address.split(", ")[2] %></td>
-    <td><%= destination.latitude %></td>
-    <td><%= destination.longitude %></td>
-    <td><%= destination.id %></td>
-    <td><%= link_to 'Show', destination %></td>
-  </tr>
-<% end %>
-</table>
-
-
-<h1>Listing all destinations</h1>
-
-<table>
-  <tr>
-    <th>Number of Favorites</th>
-    <th>Destination City</th>
-    <th>Destination Province</th>
-    <th>Destination Country</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-    <th>ID</th>
-    <th></th>
-  </tr>
-
-<% all_destinations_list.each do |destination| %>
-  <tr>
-    <td><%= destination.users.size %></td>
-    <td><%= destination.address.split(", ")[0] %></td>
-    <td><%= destination.address.split(", ")[1] %></td>
-    <td><%= destination.address.split(", ")[2] %></td>
-    <td><%= destination.latitude %></td>
-    <td><%= destination.longitude %></td>
-    <td><%= destination.id %></td>
-    <td><%= link_to 'Show', destination %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />

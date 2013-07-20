@@ -45,3 +45,7 @@ body {
 li.alert {
   margin:0px;
 }
+
+.leaflet-marker-pane img {
+  display:none;
+}
