@@ -10,6 +10,7 @@ class DestinationsController < ApplicationController
 
   def complete
     @destinations = Destination.all
+    @destination = Destination.find(4)
   end
 
   def create
@@ -65,7 +66,7 @@ class DestinationsController < ApplicationController
     @photo_urls = []
     if !page.image_urls.blank?
       page.image_urls.each do |url|
-        if !url.include?("Compass")
+        if !url.include?("Compass") && !url.include?("Ambox")
           @photo_urls << url
         end
       end

@@ -37,3 +37,11 @@ body {
   width:auto;
   height: 130px;
 }
+
+#top_list {
+  list-style: decimal;
+}
+
+li.alert {
+  margin:0px;
+}

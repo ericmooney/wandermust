@@ -3,33 +3,27 @@
 var map = L.mapbox.map('map', 'examples.map-20v6611k');
 map.addLayer(L.tileLayer('http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'));
 map.setView([30, -0], 1);
+var d = [];
+<% @destinations.each do |destination| %>
+  d.push({
+      type: 'Feature',
+      properties: {
+          title: '<%= destination.address.split(", ")[0] %>, <%= destination.address.split(", ")[2] %>',
+          'marker-size': 'small',
+          url: '<%= destination_url(destination) %>'
+      },
+      geometry: {
+          type: 'Point',
+          coordinates: [<%= destination.longitude %>, <%= destination.latitude %>]
+      }
+  })
+<% end %>
+
 
 var geoJson = {
     type: 'FeatureCollection',
-    features: [{
-        type: 'Feature',
-        properties: {
-            title: 'Washington, D.C.',
-            'marker-size': 'small',
-            url: 'http://en.wikipedia.org/wiki/Washington,_D.C.'
-        },
-        geometry: {
-            type: 'Point',
-            coordinates: [-77.03201, 38.90065]
-        }
-    },
-    {
-        type: 'Feature',
-        properties: {
-            title: 'Baltimore, MD',
-            'marker-size': 'small',
-            url: 'http://en.wikipedia.org/wiki/Washington,_D.C.'
-        },
-        geometry: {
-            type: 'Point',
-            coordinates: [-76.60767, 39.28755]
-        }
-    }]
+    features: d
+
 };
 
 map.markerLayer.setGeoJSON(geoJson);
@@ -41,7 +35,7 @@ map.markerLayer.on('mouseout', function(e) {
 });
 map.markerLayer.on('click', function(e) {
     e.layer.unbindPopup();
-    window.open(e.layer.feature.properties.url);
+    window.open(e.layer.feature.properties.url,"_parent");
 });
 </script>
 
