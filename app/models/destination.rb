@@ -9,7 +9,7 @@ class Destination < ActiveRecord::Base
     if geo = results.first
       if !geo.city.blank? && !geo.country.blank?
         destination.address = "#{geo.city}, #{geo.state}, #{geo.country}"
-        if (destination.address.blank? || destination.address == "0" || destination.address == 0)
+        if (destination.address.blank? || destination.address == "0" || destination.address == 0 || destination.address == "2" || destination.address == 2)
           destination.address = 0
         end
       else

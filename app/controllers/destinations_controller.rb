@@ -19,11 +19,10 @@ class DestinationsController < ApplicationController
     max_geocode_fails = 15
 
     # make sure the destination has a valid city returned, delete errors, in future, see if I can do this before saving a record to DB
-    if [2,"2"].include?(@destination.address)
-      counter = max_geocode_fails
-    elsif [0,1,"0","1"].include?(@destination.address)
+
+    if [0,1,2,"0","1","2"].include?(@destination.address)
       counter = 1
-      until ( ![0,1,"0","1"].include?(@destination.address) || counter == max_geocode_fails )
+      until ( ![0,1,2,"0","1","2"].include?(@destination.address) || counter == max_geocode_fails )
         @destination.destroy
         @destination = Destination.new
         @destination.get_random_coordinates
