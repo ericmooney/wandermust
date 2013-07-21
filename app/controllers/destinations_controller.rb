@@ -18,8 +18,8 @@ class DestinationsController < ApplicationController
     @destination.get_random_coordinates
 
     # make sure the destination has a valid city returned, delete errors SEE IF I CAN do this before saving a record to DB
-    if [0,1,2].include?(@destination.address.to_i)
-      until ![0,1,2].include?(@destination.address.to_i)
+    if [0,1,2].include?(@destination.address)
+      until ![0,1,2].include?(@destination.address)
         @destination.destroy
         @destination = Destination.new
         @destination.get_random_coordinates
