@@ -10,7 +10,6 @@ class DestinationsController < ApplicationController
 
   def complete
     @destinations = Destination.all
-    @destination = Destination.find(4)
   end
 
   def create
