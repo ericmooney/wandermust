@@ -59,7 +59,7 @@ div.modal.fade.in {
   left:15%;
 }
 
-.modal-backdrop, .modal-backdrop.fade.in {
+div.modal-backdrop, div.modal-backdrop.fade.in {
   opacity: 0.6;
 }
 
