@@ -45,7 +45,7 @@ div.row-fluid > div {
 
 #side_photo_container {
   height: 400px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #side_photo_container img {
@@ -70,6 +70,10 @@ div.row-fluid > div {
   list-style: decimal;
 }
 
+#top_list > li{
+  text-align: left;
+}
+
 li.alert {
   margin:0px;
 }
@@ -78,9 +82,6 @@ li.alert {
   display:none;
 }
 
-#top_list > li{
-  text-align: left;
-}
 
 #destination_content {
   text-align: justify;

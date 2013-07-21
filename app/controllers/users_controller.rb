@@ -33,9 +33,13 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         if !params[:destination_id].nil?
           @destination = Destination.find(params[:destination_id]) #if a destination param comes in (i.e. page was rendered from a non-logged-in user that wanted to sign up)
-          @user.destinations << @destination #push destination into bridge table
+          if !@user.destinations.include?(@destination)
+            @user.destinations << @destination #push destination into bridge table
+          else
+            flash[:alert] = "That favorite is already in your list."
+          end
         end
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'Welcome to your new Account!' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { redirect_to root_path, alert: 'There was an error with signing up, please try again.' }
@@ -49,7 +53,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Your account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

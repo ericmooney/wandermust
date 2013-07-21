@@ -34,16 +34,20 @@
 
 </script>
 <div id="side_photo_container" class="span3">
-    <% if @destination.users.include?(current_user) %>
-        <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
-    <% else %>
-      <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
-    <% end %>
+    <div>
+        <% if @destination.users.include?(current_user) %>
+            <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
+        <% else %>
+          <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
+        <% end %>
+    </div>
 
     <% if @photo_urls.present? %>
+    <div>
         <% @photo_urls.each do |photo| %>
             <%= image_tag(photo, :class => "wiki_photos") %>
         <% end %>
+    </div>
     <% end %>
 </div>
 

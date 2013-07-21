@@ -40,8 +40,11 @@ class DestinationsController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
     @destination = Destination.find(params[:id])
+
+    if !session[:user_id].blank?  #only used to see if the favorite is owned by logged in user
+      @user = User.find(session[:user_id])
+    end
 
     begin
       response = RubyWebSearch::Google.search(:query => "#{@destination.address} site:en.wikipedia.org").results.first[:url]
@@ -179,12 +182,12 @@ class DestinationsController < ApplicationController
       end
     end
 
-    if !response == nil
+    if !response.nil?
       page = Wikipedia.find(response)
       @photo_urls = []
       if !page.image_urls.blank?
         page.image_urls.each do |url|
-          if !url.include?("Compass") && !url.include?("Ambox")
+          if !url.include?("Compass") && !url.include?("Ambox") && !url.include?("A-")
             @photo_urls << url
           end
         end
@@ -198,7 +201,11 @@ class DestinationsController < ApplicationController
 
     if !session[:user_id].blank?  #if the session has started i.e. the customer is logged in
       @user = User.find(session[:user_id])  #grab the user object
-      @user.destinations << @destination  #update the bridge table to associate the user and destination
+      if !@user.destinations.include?(@destination)
+        @user.destinations << @destination #push destination into bridge table
+      else
+        flash[:alert] = "That favorite is already in your list."
+      end
       redirect_to user_path(@user)
     else
       @user = User.new

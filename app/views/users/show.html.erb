@@ -1,22 +1,24 @@
 <h1>Your Saved Destinations</h1>
 
-<table>
-  <tr>
+<table class="table table-hover">
+  <thead>
     <th>Destination</th>
-    <th>Coords</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
     <th></th>
     <th></th>
-   <!--  <th></th> -->
-  </tr>
-
-<% @user.favorites.each do |favorite| %>
-  <tr>
-    <td><%= favorite.destination.address %></td>
-    <td><%= favorite.destination.latitude %> and <%= favorite.destination.longitude %></td>
-    <td><%= link_to 'Show', favorite.destination %></td>
-    <td><%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  </thead>
+  <tbody>
+    <% @user.favorites.each do |favorite| %>
+      <tr class="">
+        <td><%= favorite.destination.address %></td>
+        <td><%= favorite.destination.latitude %></td>
+        <td><%= favorite.destination.longitude %></td>
+        <td><%= link_to 'Show', favorite.destination %></td>
+        <td><%= link_to 'Remove', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />
