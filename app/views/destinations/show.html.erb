@@ -1,6 +1,6 @@
 <h1 class="d<%= @destination.id %>"><%= @destination.address %></h1>
 <h5>Latitude: <%= @destination.latitude.round(9) %>,  Longitude: <%= @destination.longitude.round(9) %></h5>
-<p id="destination_content"><%= @summary %></p>
+<p id="destination_content"><%= remove_footnote_tags(@summary) %></p>
 
 <div id='map' class="dark span9"></div>
 

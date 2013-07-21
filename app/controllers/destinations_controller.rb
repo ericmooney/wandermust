@@ -64,6 +64,9 @@ class DestinationsController < ApplicationController
 
     begin
       response = RubyWebSearch::Google.search(:query => "#{@destination.address} site:en.wikipedia.org").results.first[:url]
+      if response.include?("User")
+        raise
+      end
       wiki_content = Nokogiri::HTML(open(response))
       summary = wiki_content.css("#mw-content-text p")[0].content
       if (summary.blank? || summary.include?("Coordinates"))
@@ -79,6 +82,9 @@ class DestinationsController < ApplicationController
     rescue
       begin
         response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[0]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+        if response.include?("User")
+          raise
+        end
         wiki_content = Nokogiri::HTML(open(response))
         summary = wiki_content.css("#mw-content-text p")[0].content
         if (summary.blank? || summary.include?("Coordinates"))
@@ -94,6 +100,9 @@ class DestinationsController < ApplicationController
       rescue
         begin
           response = RubyWebSearch::Google.search(:query => "#{@destination.address.split(", ")[1]}, #{@destination.address.split(", ")[2]} site:en.wikipedia.org").results.first[:url]
+          if response.include?("User")
+            raise
+          end
           wiki_content = Nokogiri::HTML(open(response))
           summary = wiki_content.css("#mw-content-text p")[0].content
           if (summary.blank? || summary.include?("Coordinates"))
