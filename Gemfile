@@ -14,7 +14,7 @@ gem 'meta_request'
 
 gem 'httparty'
 gem 'nokogiri'
-gem 'ruby-web-search', :git => 'git@github.com:mattetti/ruby-web-search.git'
+gem 'ruby-web-search'#, :git => 'git@github.com:mattetti/ruby-web-search.git'
 gem 'wikipedia-client'
 
 gem "geocoder"
