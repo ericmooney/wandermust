@@ -37,10 +37,10 @@ $(document).ready(function(){
 
     $.ajax({
       type: form.attr("method"),
-      url: form.attr("action")+".js",
+      url: form.attr("action")+".js", //Maybe I just need show.js.erb views to get modal to disappear without redirect?
       data: form.serialize(),
 
-      complete: function(data, status) {
+      success: function(data, status) {
         target.js(data);
       }
     });
