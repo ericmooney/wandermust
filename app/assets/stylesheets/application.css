@@ -52,11 +52,9 @@ div.row-fluid > div {
   margin-bottom: 5px;
 }
 
-#point_to_wander {
-  text-align: right;
-}
 
 #sign_in, #log-in {
+  text-align: left;
   float: left;
   margin: 20px 40px;
 }

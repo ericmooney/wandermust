@@ -212,7 +212,7 @@ class DestinationsController < ApplicationController
       @photo_urls = []
       if !page.image_urls.blank?
         page.image_urls.each do |url|
-          if !url.include?("Compass") && !url.include?("Ambox") && !url.include?("A-")
+          if !url.include?("Compass") && !url.include?("Ambox") && !url.include?("A-") && !url.include?("Magnify")
             @photo_urls << url
           end
         end
