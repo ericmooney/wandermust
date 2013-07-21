@@ -211,7 +211,9 @@ class DestinationsController < ApplicationController
       page = Wikipedia.find(response)
       @photo_urls = []
       if !page.image_urls.blank?
-        page.image_urls.each do |url|
+        p = page.image_urls
+        p.reject!{|url| url == nil }
+        p.each do |url|
           if !url.include?("Compass") && !url.include?("Ambox") && !url.include?("A-") && !url.include?("Magnify")
             @photo_urls << url
           end

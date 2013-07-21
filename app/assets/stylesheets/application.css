@@ -52,6 +52,21 @@ div.row-fluid > div {
   margin-bottom: 5px;
 }
 
+div.modal.fade.in {
+  top: 9%;
+  width: 72%;
+  margin-left: 0px;
+  left:15%;
+}
+
+.modal.fade.in > div.modal-body {
+  max-height: 500px;
+}
+
+.modal-body > form {
+  float:left;
+  margin: 10px;
+}
 
 #sign_in, #log-in {
   text-align: left;

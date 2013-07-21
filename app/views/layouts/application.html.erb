@@ -62,22 +62,27 @@
       <p id="flash_alert"><%= flash[:alert] %></p>
     <% end %>
 
-    <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="loginModalLabel">Sign up or Login Below</h3>
+    <% if !current_user %>
+      <div id="loginModal" class="modal hide fade span6" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="loginModalLabel">Sign up or Login Below</h3>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal well span4" href="remote.html" data-async data-target="/" action="/users" method="POST">
+            <fieldset>
+              <%= render :partial => 'users/form', :locals => {:user => @user}  %>
+            </fieldset>
+          </form>
+
+          <form class="form-horizontal well span4" href="remote.html" data-async data-target="/" action="/sessions" method="POST">
+            <fieldset>
+              <%= render 'sessions/form'  %>
+            </fieldset>
+          </form>
+        </div>
       </div>
-      <div class="modal-body">
-        <form class="form-horizontal well" href="remote.html" data-async data-target="/" action="/sessions" method="POST">
-          <fieldset>
-            <%= render 'sessions/form'  %>
-          </fieldset>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      </div>
-    </div>
+    <% end %>
 
     <div class="row-fluid">
       <div class="span9 well">
