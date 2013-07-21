@@ -87,3 +87,8 @@ li.alert {
   text-align: justify;
   margin: 10px 20px;
 }
+
+#container_favorites {
+  height: 400px;
+  overflow:auto;
+}
