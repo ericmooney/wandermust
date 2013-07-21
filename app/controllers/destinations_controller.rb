@@ -16,16 +16,33 @@ class DestinationsController < ApplicationController
     # Use Geocoder to pull back a city, if no city returns, create new random coordinates
     @destination = Destination.new
     @destination.get_random_coordinates
+    max_geocode_fails = 15
 
-    # make sure the destination has a valid city returned, delete errors SEE IF I CAN do this before saving a record to DB
-    if [0,1,2].include?(@destination.address)
+    # make sure the destination has a valid city returned, delete errors, in future, see if I can do this before saving a record to DB
+    if [2,"2"].include?(@destination.address)
+      counter = max_geocode_fails
+    elsif [0,1,"0","1"].include?(@destination.address)
       counter = 1
-      until ( ![0,1,2].include?(@destination.address) || counter == 100 )
+      until ( ![0,1,"0","1"].include?(@destination.address) || counter == max_geocode_fails )
         @destination.destroy
         @destination = Destination.new
         @destination.get_random_coordinates
         counter = counter + 1
       end
+    end
+
+    # geocoder configured to google only allows 2500 q/day apparently. consider a different config
+    #if it does fail/max out though, leverage the existing db
+
+    if counter == max_geocode_fails
+      @destination.destroy
+      all_saved_ids = []
+      destinations = Destination.all
+
+      destinations.each do |destination|
+        all_saved_ids << destination.id
+      end
+      @destination = Destination.find(all_saved_ids.sample)
     end
 
     respond_to do |format|

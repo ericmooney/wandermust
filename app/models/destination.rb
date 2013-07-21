@@ -16,7 +16,7 @@ class Destination < ActiveRecord::Base
         destination.address = 1
       end
     else
-      destination.address = 2
+      destination.address = 2 #when this occurs, there is a potential error (query limit/d etc) so needs special treatment
     end
   end
   after_validation :reverse_geocode
