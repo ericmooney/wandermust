@@ -35,10 +35,14 @@
 </script>
 <div id="side_photo_container" class="span3">
     <div>
-        <% if @destination.users.include?(current_user) %>
-            <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
+        <% if current_user == nil %>
+            <%= link_to 'Save this Destination', "#loginModal", :id => "save_destination_button", :class =>"btn btn-small btn-success", :data => {:remote => true, :toggle => "modal"} %>
         <% else %>
-          <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
+            <% if @destination.users.include?(current_user) %>
+                <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
+            <% else %>
+              <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
+            <% end %>
         <% end %>
     </div>
 

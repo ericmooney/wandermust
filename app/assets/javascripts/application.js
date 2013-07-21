@@ -37,11 +37,11 @@ $(document).ready(function(){
 
     $.ajax({
       type: form.attr("method"),
-      url: form.attr("action"),
+      url: form.attr("action")+".js",
       data: form.serialize(),
 
-      success: function(data, status) {
-        target.html(data);
+      complete: function(data, status) {
+        target.js(data);
       }
     });
 

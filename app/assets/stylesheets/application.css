@@ -59,6 +59,10 @@ div.modal.fade.in {
   left:15%;
 }
 
+.modal-backdrop, .modal-backdrop.fade.in {
+  opacity: 0.6;
+}
+
 .modal.fade.in > div.modal-body {
   max-height: 500px;
 }
