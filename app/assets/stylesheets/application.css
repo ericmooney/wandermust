@@ -20,6 +20,30 @@ body {
   text-align: center;
   background-size: cover;
   background-image:url('barcelona.jpg');
+  font-family: 'Fredericka the Great', cursive;
+}
+
+h1, .brand {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+#start_journey, #wander_button, #world_map_link{
+  font-family: 'IM Fell English', serif;
+  letter-spacing:3px;
+
+}
+
+#start_journey {
+  font-size: 30px;
+
+}
+
+#wander_button {
+  font-size: 25px;
+}
+
+#world_map_link {
+  font-size: 20px;
 }
 
 div.row-fluid > div {

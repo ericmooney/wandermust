@@ -16,6 +16,8 @@
     <%= stylesheet_link_tag "Control.MiniMap.css" %>
     <%= javascript_include_tag "Control.MiniMap.js" %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <link href='http://fonts.googleapis.com/css?family=Fredericka+the+Great' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=IM+Fell+English' rel='stylesheet' type='text/css'>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -92,7 +94,7 @@
       </div>
       <div class="span3 well">
         <ul class="nav nav-list">
-          <li><%= link_to "Show World Map", complete_path, :class => "btn" %></li>
+          <li><%= link_to "See the World", complete_path, :id => "world_map_link", :class => "btn btn-warning" %></li>
           <li class="divider"></li>
           <li class="nav-header">Top Saved Destinations</li>
           <li class="divider"></li>
@@ -113,7 +115,7 @@
             <% end %>
           </ol>
           <li class="divider"></li>
-          <%= link_to "Wander", destinations_path, :method => "POST", :id => "wander_button", :class => "btn btn-primary btn-block btn-large" %>
+          <%= link_to "Wander...", destinations_path, :method => "POST", :id => "wander_button", :class => "btn btn-primary btn-block btn-large" %>
         </ul>
       </div>
     </div>
