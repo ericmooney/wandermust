@@ -22,7 +22,6 @@ class DestinationsController < ApplicationController
       @destination.get_random_coordinates  #I think this may be the issue when geocoder fails, this process returns a "2", but is not caught in next block
     rescue
       counter == max_geocode_fails
-      binding.pry
     end
     # make sure the destination has a valid city returned, delete errors, in future, see if I can do this before saving a record to DB
 
