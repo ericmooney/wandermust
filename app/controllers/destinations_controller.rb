@@ -76,7 +76,7 @@ class DestinationsController < ApplicationController
       summary = wiki_content.css("#mw-content-text p")[0].content
       if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 52)
         summary = wiki_content.css("#mw-content-text p")[1].content
-        if (summary.include?("may refer to") || summary.blank?)
+        if (summary.include?("may refer to") || summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
           raise
         else
           @summary = summary
@@ -94,7 +94,7 @@ class DestinationsController < ApplicationController
         summary = wiki_content.css("#mw-content-text p")[0].content
         if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 52)
           summary = wiki_content.css("#mw-content-text p")[1].content
-          if (summary.include?("may refer to") || summary.blank?)
+          if (summary.include?("may refer to") || summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
             raise
           else
             @summary = summary
@@ -112,7 +112,7 @@ class DestinationsController < ApplicationController
           summary = wiki_content.css("#mw-content-text p")[0].content
           if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 52)
             summary = wiki_content.css("#mw-content-text p")[1].content
-            if (summary.include?("may refer to") || summary.blank?)
+            if (summary.include?("may refer to") || summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
               raise
             else
               @summary = summary
