@@ -15,9 +15,14 @@ class DestinationsController < ApplicationController
   def create
     # Use Geocoder to pull back a city, if no city returns, create new random coordinates
     @destination = Destination.new
-    @destination.get_random_coordinates
+
     max_geocode_fails = 15
 
+    begin
+      @destination.get_random_coordinates  #I think this may be the issue when geocoder fails, this process returns a "2", but is not caught in next block
+    rescue
+      counter == max_geocode_fails
+    end
     # make sure the destination has a valid city returned, delete errors, in future, see if I can do this before saving a record to DB
 
     if [0,1,2,"0","1","2"].include?(@destination.address)
@@ -69,7 +74,7 @@ class DestinationsController < ApplicationController
       end
       wiki_content = Nokogiri::HTML(open(response))
       summary = wiki_content.css("#mw-content-text p")[0].content
-      if (summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
+      if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 30)
         summary = wiki_content.css("#mw-content-text p")[1].content
         if (summary.include?("may refer to") || summary.blank?)
           raise
@@ -87,7 +92,7 @@ class DestinationsController < ApplicationController
         end
         wiki_content = Nokogiri::HTML(open(response))
         summary = wiki_content.css("#mw-content-text p")[0].content
-        if (summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
+        if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 30)
           summary = wiki_content.css("#mw-content-text p")[1].content
           if (summary.include?("may refer to") || summary.blank?)
             raise
@@ -105,7 +110,7 @@ class DestinationsController < ApplicationController
           end
           wiki_content = Nokogiri::HTML(open(response))
           summary = wiki_content.css("#mw-content-text p")[0].content
-          if (summary.blank? || summary.include?("Coordinates") || summary.include?("www"))
+          if (summary.blank? || summary.include?("Coordinates") || summary.include?("www") || summary.length < 30)
             summary = wiki_content.css("#mw-content-text p")[1].content
             if (summary.include?("may refer to") || summary.blank?)
               raise
@@ -119,7 +124,7 @@ class DestinationsController < ApplicationController
           begin
             wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.gsub(" ", "_")}"))
             summary = wiki_content.css("#mw-content-text p")[0].content
-            if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+            if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
               summary = wiki_content.css("#mw-content-text p")[1].content
               if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                 raise
@@ -133,7 +138,7 @@ class DestinationsController < ApplicationController
             begin
               wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[0].titleize.split(" ")[0]}"))
               summary = wiki_content.css("#mw-content-text p")[0].content
-              if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+              if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
                 summary = wiki_content.css("#mw-content-text p")[1].content
                 if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                   raise
@@ -147,7 +152,7 @@ class DestinationsController < ApplicationController
               begin
               wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.gsub(" ", "_")}"))
               summary = wiki_content.css("#mw-content-text p")[0].content
-              if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+              if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
                 summary = wiki_content.css("#mw-content-text p")[1].content
                 if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                   raise
@@ -161,7 +166,7 @@ class DestinationsController < ApplicationController
                 begin
                 wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[1].titleize.split(" ")[0]}"))
                 summary = wiki_content.css("#mw-content-text p")[0].content
-                if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+                if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
                   summary = wiki_content.css("#mw-content-text p")[1].content
                   if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                     raise
@@ -175,7 +180,7 @@ class DestinationsController < ApplicationController
                   begin
                   wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.gsub(" ", "_")}"))
                   summary = wiki_content.css("#mw-content-text p")[0].content
-                  if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+                  if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
                     summary = wiki_content.css("#mw-content-text p")[1].content
                     if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                       raise
@@ -188,7 +193,7 @@ class DestinationsController < ApplicationController
                   rescue
                     wiki_content = Nokogiri::HTML(open("http://en.wikipedia.org/wiki/#{@destination.address.split(", ")[2].titleize.split(" ")[0]}"))
                     summary = wiki_content.css("#mw-content-text p")[0].content
-                    if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www"))
+                    if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to") || summary.include?("www") || summary.length < 30)
                       summary = wiki_content.css("#mw-content-text p")[1].content
                       if (summary.blank? || summary.include?("Coordinates") || summary.include?("may refer to"))
                         raise
