@@ -13,18 +13,18 @@ class DestinationsController < ApplicationController
   end
 
   def create
-    # Use Geocoder to pull back a city, if no city returns, create new random coordinates
+    # Goal: Use Geocoder to pull back a city, if no city returns, create new random coordinates
+
     @destination = Destination.new
 
+    #in case the geocoder fails, only try this many times before breaking loop
     max_geocode_fails = 15
 
-    begin
-      @destination.get_random_coordinates  #I think this may be the issue when geocoder fails, this process returns a "2", but is not caught in next block
-    rescue
-      counter == max_geocode_fails
-    end
-    # make sure the destination has a valid city returned, delete errors, in future, see if I can do this before saving a record to DB
+    #get random coordinates, which also triggers geocoder gem reverse geocode
+    @destination.get_random_coordinates
 
+    # make sure the destination has a valid city returned, and if it doesn't, just delete destination and try again
+    #in future, see if I can do this before saving a record to DB
     if [0,1,2,"0","1","2"].include?(@destination.address)
       counter = 1
       until ( ![0,1,2,"0","1","2"].include?(@destination.address) || counter == max_geocode_fails )
@@ -36,10 +36,12 @@ class DestinationsController < ApplicationController
     end
 
     # geocoder configured to google only allows 2500 q/day apparently. consider a different config
-    #if it does fail/max out though, leverage the existing db
 
+    # if it does fail/max out, leverage the existing db
     if counter == max_geocode_fails
       @destination.destroy
+
+      #pick a random destination from the DB instead
       all_saved_ids = []
       destinations = Destination.all
 
@@ -50,12 +52,18 @@ class DestinationsController < ApplicationController
     end
 
     respond_to do |format|
-      if @destination.save
+      #if we hit the limit due to geocoder fail, don't overwrite the existing db destination by saving it.
+      if counter == max_geocode_fails
         format.html { redirect_to @destination }
         format.js
       else
-        format.html { render action: "index" }
-        format.js
+        if @destination.save
+          format.html { redirect_to @destination }
+          format.js
+        else
+          format.html { render action: "index" }
+          format.js
+        end
       end
     end
   end

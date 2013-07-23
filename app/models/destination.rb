@@ -16,7 +16,7 @@ class Destination < ActiveRecord::Base
         destination.address = 1
       end
     else
-      destination.address = 2 #when this occurs, there is a potential error (query limit/d etc) so needs special treatment
+      destination.address = 2 #when this occurs, there is a potential error (query limit/etc) so needs special treatment
     end
   end
   after_validation :reverse_geocode
@@ -24,7 +24,7 @@ class Destination < ActiveRecord::Base
 
   def get_random_coordinates
     update_attributes(:longitude => (rand*(360)-180), :latitude => (rand*(180)-90))
-    return  #without this, I was getting back "true", which messed up the controller logic
+    return  #without this, I was getting back "true"
   end
 
 end
