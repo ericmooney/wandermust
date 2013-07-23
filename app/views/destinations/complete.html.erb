@@ -7,7 +7,7 @@ var map = L.mapbox.map('map_complete', 'examples.map-20v6611k');
 map.addLayer(L.tileLayer('http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'));
 map.setView([30, -0], 1);
 var d = [];
-<% @destinations.shuffle.each do |destination| %>
+<% most_recent_destinations_for_map.shuffle.each do |destination| %>
   d.push({
       type: 'Feature',
       properties: {
