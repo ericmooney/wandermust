@@ -18,6 +18,20 @@
 
 $(document).ready(function(){
 
+     if ($(window).width() <= 480) {
+         $('#login_modal_big').addClass('hide1');
+         $('#login_not_modal_small').removeClass('hide1');
+         $('#save_without_modal').removeClass('hide1');
+         $('#save_w_modal').addClass('hide1');
+     }
+     else {
+       $('#login_not_modal_small').addClass('hide1');
+       $('#login_modal_big').removeClass('hide1');
+       $('#save_w_modal').removeClass('hide1');
+       $('#save_without_modal').addClass('hide1');
+     }
+
+
   // to stop duplication of wander button on homepage
   if ($('#homepage').length > 0) {
     $('#wander_button').hide();

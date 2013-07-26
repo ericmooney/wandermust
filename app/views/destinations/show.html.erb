@@ -2,14 +2,48 @@
 <h5>Latitude: <%= @destination.latitude.round(9) %>,  Longitude: <%= @destination.longitude.round(9) %></h5>
 <p id="destination_content"><%= remove_footnote_tags(@summary) %></p>
 
-<div id='map' class="dark span9"></div>
+<div class="row-fluid">
+    <div id='map' class="dark span9"></div>
+
+    <div  class="span3">
+            <% if current_user == nil %>
+                <div id="save_w_modal" class= "save_destination_button"><%= link_to 'Save this Destination', "#loginModal", :id => "", :class =>"btn btn-small btn-success btn-block", :data => {:remote => true, :toggle => "modal"} %></div>
+                <div id="save_without_modal" class=" save_destination_button hide1"><%= link_to 'Save this Destination', save_destination_path, :id => "", :class =>"btn btn-small btn-block btn-success" %></div>
+            <% else %>
+                <% if @destination.users.include?(current_user) %>
+                    <div class= "save_destination_button"><%= link_to 'One of your Favorites', user_path(@user), :id => "", :class =>"btn btn-small btn-block btn-inverse" %></div>
+                <% else %>
+                  <div class= "save_destination_button"><%= link_to 'Save this Destination', save_destination_path, :id => "", :class =>"btn btn-small btn-block btn-success" %></div>
+                <% end %>
+            <% end %>
+
+        <% if @photo_urls.present? %>
+        <div id="side_photo_container">
+            <% @photo_urls.each do |photo| %>
+                <%= image_tag(photo, :class => "wiki_photos") %>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
+</div>
 
 <script type='text/javascript'>
+
+    var dimensions = null;
+
+    if ($(window).width() <= 480) {
+        dimensions = 100
+    }
+    else {
+        dimensions = 150
+    }
+
+
  var map = L.mapbox.map('map', 'examples.map-qfyrx5r8')
      .addControl(L.mapbox.geocoderControl('examples.map-qfyrx5r8'))
      .setView([<%= @destination.latitude %>, <%= @destination.longitude %>], 6)
      .on('ready', function() {
-       new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-b70jh5xu'))
+       new L.Control.MiniMap(L.mapbox.tileLayer('examples.map-b70jh5xu'), {height: dimensions, width:dimensions})
          .addTo(map);
       });
 
@@ -33,25 +67,3 @@
  marker.show();
 
 </script>
-<div id="side_photo_container" class="span3">
-    <div>
-        <% if current_user == nil %>
-            <%= link_to 'Save this Destination', "#loginModal", :id => "save_destination_button", :class =>"btn btn-small btn-success", :data => {:remote => true, :toggle => "modal"} %>
-        <% else %>
-            <% if @destination.users.include?(current_user) %>
-                <%= link_to 'One of your Favorites', user_path(@user), :id => "save_destination_button", :class =>"btn btn-small btn-inverse" %>
-            <% else %>
-              <%= link_to 'Save this Destination', save_destination_path, :id => "save_destination_button", :class =>"btn btn-small btn-success" %>
-            <% end %>
-        <% end %>
-    </div>
-
-    <% if @photo_urls.present? %>
-    <div>
-        <% @photo_urls.each do |photo| %>
-            <%= image_tag(photo, :class => "wiki_photos") %>
-        <% end %>
-    </div>
-    <% end %>
-</div>
-

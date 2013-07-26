@@ -1,20 +1,25 @@
+<div class="row-fluid">
 
-<%= render :partial => 'users/form', :locals => {:user => @user}  %>
+  <div class="span4 offset2">
+    <%= render :partial => 'users/form', :locals => {:user => @user}  %>
+  </div>
+  <div class="span4">
+    <div id="log-in">
+      <h4>Log In</h4>
+      <br>
+      <%= form_tag sessions_path do %>
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %><br>
 
-<div id="log-in">
-  <h4>Log In</h4>
-  <br>
-  <%= form_tag sessions_path do %>
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %><br>
+        <%= label_tag :password %>
+        <%= password_field_tag :password %><br>
 
-    <%= label_tag :password %>
-    <%= password_field_tag :password %><br>
+        <% if !@destination.nil? %>
+          <input type="hidden" name="destination_id" value="<%= @destination.id %>">
+        <% end %>
 
-    <% if !@destination.nil? %>
-      <input type="hidden" name="destination_id" value="<%= @destination.id %>">
-    <% end %>
-
-    <%= submit_tag "Log In", :class => "btn btn-info" %>
-  <% end %>
+        <%= submit_tag "Log In", :class => "btn btn-info" %>
+      <% end %>
+    </div>
+  </div>
 </div>

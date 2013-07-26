@@ -45,7 +45,8 @@
               <li class=""><%= link_to "Howdy, #{current_user.first_name}", user_path(current_user), :class => "nav" %></li>
               <li class=""><%= link_to "Log Out", logout_path, :class => "nav" %></li>
             <% else %>
-              <li class=""><%= link_to "Log In", "#loginModal", :class => "nav", :data => {:remote => true, :toggle => "modal"}  %></li>
+              <li id ="login_not_modal_small"><%= link_to "Log In", new_session_path, :class => "nav" %></li>
+              <li id = "login_modal_big"><%= link_to "Log In", "#loginModal", :class => "nav", :data => {:remote => true, :toggle => "modal"}  %></li>
             <% end %>
           </ul>
           <!-- .nav, .navbar-search, .navbar-form, etc -->

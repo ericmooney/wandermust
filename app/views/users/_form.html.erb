@@ -18,17 +18,14 @@
       <%= f.label :first_name, "Your name" %>
       <%= f.text_field :first_name %>
     </div>
-    <br>
     <div class="field">
       <%= f.label :email %>
       <%= f.text_field :email %>
     </div>
-    <br>
     <div class="field">
       <%= f.label :password %>
       <%= f.password_field :password %>
     </div>
-    <br>
     <div class="field">
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
@@ -37,7 +34,6 @@
     <% if !@destination.nil? %>
       <input type="hidden" name="destination_id" value="<%= @destination.id %>">
     <% end %>
-    <br>
     <div class="actions">
       <%= f.submit "Register", :class => "btn btn-info"%>
     </div>

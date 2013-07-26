@@ -14,6 +14,15 @@
  *= require_tree .
  */
 
+@media screen and (max-width: 480px) {
+  div.span3 #side_photo_container {
+    height: 100%;
+  }
+
+  #sign_in, #log-in {
+    margin: 0px 0px;
+  }
+}
 
 body {
   padding: 40px;
@@ -50,9 +59,9 @@ div.row-fluid > div {
   margin-top: 20px;
 }
 
-#save_destination_button {
-  width: 86%;
-  margin-bottom: 5px;
+.save_destination_button {
+  width: 100%;
+  margin-bottom: 7px;
 }
 
 #map_complete {
@@ -61,14 +70,11 @@ div.row-fluid > div {
 }
 
 #map {
-  width:70%;
   height: 400px;
-  float:left;
-  margin-right: 10px;
 }
 
 #side_photo_container {
-  height: 400px;
+  height: 369px;
   overflow: auto;
 }
 
@@ -98,8 +104,6 @@ div.modal-backdrop, div.modal-backdrop.fade.in {
 
 #sign_in, #log-in {
   text-align: left;
-  float: left;
-  margin: 20px 40px;
 }
 
 .wiki_photos {
@@ -145,4 +149,9 @@ li.alert {
   border: 10px solid black;
   left: 50%;
   top: 260px;
+}
+
+.hide1 {
+  display:none;
+  visibility: hidden;
 }
