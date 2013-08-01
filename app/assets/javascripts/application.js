@@ -62,4 +62,20 @@ $(document).ready(function(){
     event.preventDefault();
   });
 
+
+  var spinning_globe = function(event){
+    $('body').addClass("lightsout");
+  };
+
+  $('#start_journey, #wander_button').on("click", spinning_globe)
+
+
+  // Once I figure out a way to be more selective with the photos, choose one of the returned images on the show page
+  //
+  // if ($('#side_photo_container img').length > 0) {
+  //   $('body').css('background-image',"url("+$('#side_photo_container img').eq(0).attr('src')+")")
+  // };
+
+
+
 });
