@@ -65,5 +65,6 @@ module Wandermust
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.precompile += ['Control.MiniMap.css']
+    config.assets.precompile += ['Control.MiniMap.js']
   end
 end
