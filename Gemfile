@@ -15,7 +15,7 @@ gem 'meta_request'
 gem 'httparty'
 gem 'nokogiri'
 gem 'ruby-web-search', :git => 'git://github.com/mattetti/ruby-web-search.git'
-gem 'wikipedia-client'
+gem 'wikipedia-client', '~>1.4.0'
 
 gem "geocoder"
 # Gems used only for assets and not required
