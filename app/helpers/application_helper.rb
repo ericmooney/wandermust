@@ -10,7 +10,9 @@ module ApplicationHelper
 
   def top_destinations_list
     Destination.all.sort {
-      |a, b| b.users.size <=> a.users.size
+      # NEED TO fix when updating rails
+      # |a, b| b.users.size <=> a.users.size
+      |a, b| b <=> a
     }
   end
 
